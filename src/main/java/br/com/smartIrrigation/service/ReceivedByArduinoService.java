@@ -40,4 +40,8 @@ public class ReceivedByArduinoService implements GenericService<ReceivedByArduin
 		receivedByArduinoRepository.deleteById(id);
 	}
 	
+	public List<ReceivedByArduino> findTop5ByOrderByIdDesc(){
+		return receivedByArduinoRepository.findTop5ByOrderByIdDesc();
+	}
+	
 }

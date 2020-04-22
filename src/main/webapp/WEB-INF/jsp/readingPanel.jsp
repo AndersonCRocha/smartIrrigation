@@ -33,16 +33,16 @@
 			 		<thead class="thead thead-light">
 			 			<tr scope="row">
 			 				<th scope="col">Data e Hora</th>
-			 				<th scope="col">Umidade</th>
-			 				<th scope="col">Potência do sinal</th>
+			 				<th scope="col" class="textRight">Umidade</th>
+			 				<th scope="col" class="textRight">Potência do sinal</th>
 			 			</tr>
 			 		</thead>
 			 		<tbody>
 			 			<c:forEach items="${listReadings}" var="reading">
 			 				<tr scope="row">
 			 					<td scope="col"><fmt:formatDate pattern="dd/MM/yyyy - HH:mm:ss" value="${reading.verificationTime}"/></td>
-			 					<td scope="col">${reading.humidity}</td>
-			 					<td scope="col">${reading.signalStrength}</td>
+			 					<td scope="col" class="textRight">${reading.humidity}%</td>
+			 					<td scope="col" class="textRight">${reading.signalStrength}%</td>
 			 				</tr>
 			 			</c:forEach>
 			 		</tbody>

@@ -21,7 +21,7 @@ public class ReceivedByArduinoTemplateController {
 	@GetMapping({"/ReadingPanel", ""})
 	public ModelAndView openReadingPanel() {
 		
-		List<ReceivedByArduino> listReadings = receivedByArduinoService.findAll();
+		List<ReceivedByArduino> listReadings = receivedByArduinoService.findTop5ByOrderByIdDesc();
 		
 		return new ModelAndView("readingPanel", "listReadings", listReadings);
 	}
