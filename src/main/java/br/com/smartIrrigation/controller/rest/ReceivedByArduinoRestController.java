@@ -1,6 +1,5 @@
 package br.com.smartIrrigation.controller.rest;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.smartIrrigation.bean.ReceivedByArduino;
 import br.com.smartIrrigation.service.ReceivedByArduinoService;
+import br.com.smartIrrigation.util.Utilities;
 
 @RestController
 @RequestMapping("/rest")
@@ -28,7 +28,7 @@ public class ReceivedByArduinoRestController {
 		
 		ReceivedByArduino receivedByArduino;
 		try {
-			receivedByArduino = new ReceivedByArduino(new Timestamp(System.currentTimeMillis()), humidity, signalStrength);
+			receivedByArduino = new ReceivedByArduino(Utilities.today(), humidity, signalStrength);
 			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");

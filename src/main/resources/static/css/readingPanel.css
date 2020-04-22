@@ -31,8 +31,22 @@ header{
 	border-radius: 0 20px 0 0;
 }
 .commands{
-	
+	display:flex;
+	width: 100%;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px;
+	margin-bottom:10px;
+	background-color: #343a40;
+	border-radius: 20px;
+	flex-wrap: wrap;
 }
 .textRight{
 	text-align: right;
+}
+.btnCommands{
+	color: #e9ecef;
+}
+.btnCommands:hover{
+	color: #aeb4ba;
 }
