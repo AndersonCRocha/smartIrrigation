@@ -41,6 +41,26 @@ header{
 	border-radius: 20px;
 	flex-wrap: wrap;
 }
+@media(max-width: 480px){
+	.commands{
+		flex-direction: column;
+	}
+	.btnJustIcon{
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	#divCommands{
+		margin-top: 10px;
+		text-align: center;
+	}
+	.toggleCommands{
+		display:block !important;
+s	}
+	.textCenter{
+		text-align: center;
+	}
+}
 .textRight{
 	text-align: right;
 }
@@ -49,4 +69,17 @@ header{
 }
 .btnCommands:hover{
 	color: #aeb4ba;
+}
+.toggleCommands{
+	color: #e9ecef !important;
+	display: none;
+}
+#divCommands{
+	justify-content: space-between;
+	width: 100%			
+}
+@media(min-width: 480px){
+	#divCommands{
+		display: flex !important;
+	}
 }

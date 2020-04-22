@@ -30,18 +30,28 @@
 			
 			<section class="content">
 				<div class="commands">
-			 		<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Command 1"><i class="fa fa-cog"></i> COMMAND 1</button>
-			 		<button type="button" class="btn btn-warning" data-toggle="tooltip" title="Command 2"><i class="fa fa-cog"></i> COMMAND 2</button>
-			 		<button type="button" class="btn btn-danger" data-toggle="tooltip" title="Command 3"><i class="fa fa-cog"></i> COMMAND 3</button>
-			 		<button type="button" class="btn btn-success" data-toggle="tooltip" title="Command 4"><i class="fa fa-cog"></i> COMMAND 4</button>
-			 		<div>
-				 		<button type="button" class="btn btnCommands" onclick="window.location.reload();" data-toggle="tooltip" title="Atualizar">
-				 			<i class="fa fa-refresh"></i>
-				 		</button>
-				 		<button type="button" class="btn btnCommands" onclick="clearReadings();" data-toggle="tooltip" title="Resetar leituras">
-				 			<i class="fa fa-trash"></i>
-				 		</button>
-			 		</div>
+					<a class="toggleCommands" type="button" onclick="toggleText();" data-toggle="collapse" data-target="#divCommands" aria-expanded="false" aria-controls="divCommands">
+						<i class="fa  fa-angle-down"></i> <spam id="textToggle">Exibir comandos<spam>
+					</a>
+					<div class="collapse" id="divCommands">
+				 		<div class="btnJustIcon">
+					 		<button type="button" class="btn btnCommands" onclick="window.location.reload();" data-toggle="tooltip" title="Atualizar">
+					 			<i class="fa fa-refresh"></i>
+					 		</button>
+					 		<button type="button" class="btn btnCommands" onclick="clearReadings();" data-toggle="tooltip" title="Resetar leituras">
+					 			<i class="fa fa-trash"></i>
+					 		</button>
+					 		<button type="button" class="btn btnCommands" onclick="testReading();" data-toggle="tooltip" title="Leitura teste">
+					 			<i class="fa fa-plus"></i>
+					 		</button>
+				 		</div>
+				 		<div>
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Command 1"><i class="fa fa-cog"></i> COMMAND 1</button>
+					 		<button type="button" class="btn btn-warning" data-toggle="tooltip" title="Command 2"><i class="fa fa-cog"></i> COMMAND 2</button>
+					 		<button type="button" class="btn btn-danger" data-toggle="tooltip" title="Command 3"><i class="fa fa-cog"></i> COMMAND 3</button>
+					 		<button type="button" class="btn btn-success" data-toggle="tooltip" title="Command 4"><i class="fa fa-cog"></i> COMMAND 4</button>
+				 		</div>
+					</div>	
 			 	</div>
 			 	<table class="table table-borderless table-dark table-hover" id="tableReadings">
 			 		<thead class="thead thead-light">
@@ -54,7 +64,7 @@
 			 		<tbody>
 			 			<c:forEach items="${listReadings}" var="reading">
 			 				<tr scope="row">
-			 					<td scope="col"><fmt:formatDate pattern="dd/MM/yyyy - HH:mm:ss" value="${reading.verificationTime}"/></td>
+			 					<td scope="col" class="textCenter"><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${reading.verificationTime}"/></td>
 			 					<td scope="col" class="textRight">${reading.humidity}%</td>
 			 					<td scope="col" class="textRight">${reading.signalStrength}%</td>
 			 				</tr>
@@ -70,9 +80,10 @@
 		</body>
 	</div>
 	<script>
-		$(function () {
+		$(document).ready(function(){
+			$(".btn").off("focusin");
 			$('[data-toggle="tooltip"]').tooltip()
-		})
+		});
 		function clearReadings(){
 			if(confirm("Deseja realmente resetar o histórico de leituras?")){
 				$.get({
@@ -86,8 +97,23 @@
 				});
 			}
 		}
-		$(document).ready(function(){
-			$(".btn").off("focusin");
-		});
+		function testReading(){
+			$.get({
+				url: "/rest/saveReading?humidity=7&signalStrength=13",
+				success: function(){
+					window.location.href="/ReadingPanel";
+				},
+				error:function(){
+					alert("Ocorreu um erro ao tentar cadastrar a leitura de teste.");
+				}
+			});
+		}
+		function toggleText(){
+			var $textToggle = $('.toggleCommands #textToggle');
+			var text = $textToggle.text().trim();
+			var $icon = $('.toggleCommands i');
+			$textToggle.text(text == "Exibir comandos" ? "Esconder comandos" : "Exibir comandos");
+			$icon.toggleClass("fa fa-angle-down fa fa-angle-up");
+		}
 	</script>
 </html>
