@@ -50,6 +50,9 @@ public class ReceivedByArduino {
 	public void setSignalStrength(Integer signalStrength) {
 		this.signalStrength = signalStrength;
 	}
-	
+	@Override
+	public String toString() {
+		return "Reading[id:"+this.id+", verificationTime:"+this.verificationTime+", humidity:"+this.humidity+", signalStrength:"+this.signalStrength+"]";
+	}
 	
 }

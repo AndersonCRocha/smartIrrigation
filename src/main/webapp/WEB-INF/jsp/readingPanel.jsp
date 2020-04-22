@@ -25,7 +25,7 @@
 	<body>
 		<div class="page">
 			<header>
-				<spam>SmartIrrigation</spam>&nbsp;<spam>Leituras</spam>
+				<spam><i class="fa fa-recycle iconTitle"></i> SmartIrrigation</spam>&nbsp;<spam>Leituras</spam>
 			</header>
 			
 			<section class="content">

@@ -60,6 +60,9 @@ s	}
 	.textCenter{
 		text-align: center;
 	}
+	header{
+		font-size: 30px;
+	}
 }
 .textRight{
 	text-align: right;
@@ -82,4 +85,10 @@ s	}
 	#divCommands{
 		display: flex !important;
 	}
+}
+.iconTitle{
+    color: green;
+    background-color: #efe494;
+    padding: 10px;
+    border-radius: 50px;	
 }

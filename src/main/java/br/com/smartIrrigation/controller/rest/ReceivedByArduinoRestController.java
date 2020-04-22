@@ -37,6 +37,22 @@ public class ReceivedByArduinoRestController {
 		return new ResponseEntity<ReceivedByArduino>(receivedByArduino ,HttpStatus.OK);
 	}
 	
+	@GetMapping("/save")
+	public String save(
+					@RequestParam(name = "humidity", required = true) Integer humidity,
+					@RequestParam(name = "signalStrength", required = true) Integer signalStrength){
+		
+		ReceivedByArduino receivedByArduino;
+		try {
+			receivedByArduino = new ReceivedByArduino(Utilities.today(), humidity, signalStrength);
+			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
+		}catch(Exception e) {
+			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
+		}
+	
+		return receivedByArduino != null ? receivedByArduino.toString() : "";
+	}
+	
 	@GetMapping("/listReadings")
 	public ResponseEntity<List<ReceivedByArduino>> listReadings(){
 		
