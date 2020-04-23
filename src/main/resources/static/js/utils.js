@@ -1,5 +1,7 @@
 $('[data-toggle="tooltip"]').tooltip()
 $(".btn").off("focusin");
+$('.hour').mask('00:00',{placeholder:"00:00"});
+$('.maxHundred').mask('000');
 
 if(document.querySelector("input[type='checkbox']") != null){
 	document.querySelector("input[type='checkbox']").addEventListener("change", function(){

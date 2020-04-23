@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.png">
 		
 		<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap/bootstrap-grid.min.css">
@@ -18,6 +19,7 @@
         <link rel="stylesheet" href="/css/fontawesome/css/v4-shims.min.css">
         
         <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap/bootstrap.bundle.min.js"></script>
 	
 		<title>SmartIrrigation</title>
@@ -25,7 +27,8 @@
 	<body>
 		<div class="page">
 			<header>
-				<spam><i class="fa fa-recycle iconTitle"></i> SmartIrrigation</spam>&nbsp;<spam>Leituras</spam>
+<!-- 				<spam><i class="fa fa-recycle iconTitle"></i> SmartIrrigation</spam>&nbsp;<spam>Leituras</spam> -->
+				<img alt="Logotipo" src="/imgs/logo.png" width="100%">
 			</header>
 			
 			<section class="content">
@@ -55,7 +58,7 @@
 				 		</div>
 					</div>	
 			 	</div>
-			 	<table class="table table-borderless table-dark table-hover" id="tableReadings">
+			 	<table class="table table-borderless table-dark table-hover table-sm" id="tableReadings">
 			 		<thead class="thead thead-light">
 			 			<tr scope="row">
 			 				<th scope="col">Data e Hora</th>
@@ -84,7 +87,7 @@
 			<div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="parameters" aria-hidden="true" data-backdrop="static">
 				<div class="modal-dialog modal-dialog-centered " role="document">
 					<div class="modal-content">
-						<form action="/Parameters/save" method="POST" accept-charset="utf-8">
+						<form action="/Parameters/save" method="POST" accept-charset="utf-8" id="formParameters">
 							<div class="modal-header">
 								<h5 class="modal-title" id="parameters">Parâmetros</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -94,24 +97,40 @@
 							<div class="modal-body">
 								<div class="form-group">
 									<div class="row">
-										<div class="col-2">
+										<div class="col-6">
 											<label for="irrigate">Irrigar:</label>
-											<input type="checkbox" name="irrigate" class="form-check" value="${parameters.irrigate}" ${parameters.irrigate == true ? 'checked' : ''}>		
+										</div>
+										<div class="col-6">
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input" name="irrigate" id="irrigate" value="${parameters.irrigate}"  ${parameters.irrigate == true ? 'checked' : ''}>
+												<label class="custom-control-label" for="irrigate"></label>
+											</div>
 										</div>
 										<div class="col-6">
 											<label for="criticalHumidity">Umidade crítica:</label>
-											<input type="number" name="criticalHumidity" class="form-control only-number" value="${parameters.criticalHumidity}" required>		
+											<div class="input-group">
+												<input type="text" name="criticalHumidity" id="criticalHumidity" class="form-control maxHundred" onblur="verifyHumidity(this);" value="${parameters.criticalHumidity}" required>		
+										        <div class="input-group-append">
+										        	<div class="input-group-text">%</div>
+										        </div>
+									     	</div>
 										</div>
-										<div class="col-4">
+										<div class="col-6">
 											<label for="milliseconds">Tempo:</label>
-											<input type="number" name="milliseconds" class="form-control only-number" value="${parameters.milliseconds}" required>		
+											<div class="input-group">
+												<input type="hidden" name="milliseconds" value="${parameters.milliseconds}">		
+												<input type="text" id="milliseconds" class="form-control hour" required>		
+										        <div class="input-group-append">
+										        	<div class="input-group-text">h</div>
+										        </div>
+									     	</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-remove"></i> Cancelar</button>
-								<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
+								<button type="button" class="btn btn-primary" onclick="saveParameters();"><i class="fa fa-save"></i> Salvar</button>
 							</div>
 						</form>
 					</div>
@@ -121,6 +140,9 @@
 	</body>
 	<script type="text/javascript" src="/js/utils.js"></script>
 	<script>
+		$(document).ready(function(){
+			setHour();
+		});
 		function clearReadings(){
 			if(confirm("Deseja realmente resetar o histórico de leituras?")){
 				$.get({
@@ -154,6 +176,45 @@
 				$textToggle.text(text == "Exibir comandos" ? "Esconder comandos" : "Exibir comandos");
 				$icon.toggleClass("fa fa-angle-down fa fa-angle-up");
 			}, 100)
+		}
+		function setHour(){
+			var milliseconds = $('input[name="milliseconds"]').val();
+			var minutes = milliseconds/60000;
+			var hours = Math.floor(minutes/60)+"";
+			minutes = (minutes%60)+"";
+			hours = hours.length == 1 ? "0"+hours : hours;
+			minutes = minutes.length == 1 ? "0"+minutes : minutes; 
+			var value = hours+":"+minutes;
+			$('#milliseconds').val(value);
+		}
+		
+		function saveParameters(){
+			var val = $('#milliseconds').val();
+			var arr = val.split(":");
+			var hours = arr[0]+"";
+			var minutes = arr[1]+"";
+			
+			if(hours.length != 2  || minutes.length != 2 || parseInt(minutes) > 59){
+				alert("Formato de hora inválido!");
+				$('#milliseconds').val("00:00")
+				return false;
+			}
+
+			var milliseconds = (parseInt(minutes) * 60000) + (parseInt(hours) * 3600000);
+			$('input[name="milliseconds"]').val(milliseconds);
+			if(verifyHumidity($("#criticalHumidity"))){
+				$('#formParameters').submit();
+			}
+		}
+
+		function verifyHumidity(el){
+			var val = $(el).val();
+			if(parseInt(val) > 100){
+				alert("O valor máximo para a umidade crítica é de 100%!")
+				$(el).val(0);
+				return false;
+			}
+			return true;
 		}
 	</script>
 </html>
