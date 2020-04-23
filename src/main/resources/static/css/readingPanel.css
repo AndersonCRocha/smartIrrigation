@@ -51,17 +51,20 @@ header{
 		justify-content: center;
 	}
 	#divCommands{
-		margin-top: 10px;
 		text-align: center;
 	}
 	.toggleCommands{
 		display:block !important;
-s	}
+	}
 	.textCenter{
 		text-align: center;
 	}
 	header{
 		font-size: 30px;
+	}
+	.btnWithText .btn{
+		width: 100%;
+		margin: 5px 0;
 	}
 }
 .textRight{
@@ -78,8 +81,12 @@ s	}
 	display: none;
 }
 #divCommands{
-	justify-content: space-between;
-	width: 100%			
+  overflow:hidden;
+  max-height: 300px;
+  transition: max-height 0.5s ease-in-out;
+}
+#divCommands:not(.showDiv){
+	max-height: 0;
 }
 @media(min-width: 480px){
 	#divCommands{
@@ -92,3 +99,4 @@ s	}
     padding: 10px;
     border-radius: 50px;	
 }
+
