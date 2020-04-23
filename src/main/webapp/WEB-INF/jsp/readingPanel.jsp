@@ -100,11 +100,11 @@
 										</div>
 										<div class="col-6">
 											<label for="criticalHumidity">Umidade crítica:</label>
-											<input type="text" name="criticalHumidity" class="form-control onlyNumber maxHundred" maxlength="3" value="${parameters.criticalHumidity}" required>		
+											<input type="number" name="criticalHumidity" class="form-control only-number" value="${parameters.criticalHumidity}" required>		
 										</div>
 										<div class="col-4">
 											<label for="milliseconds">Tempo:</label>
-											<input type="text" name="milliseconds" class="form-control onlyNumber fiveNumber" maxlength="5" value="${parameters.milliseconds}" required>		
+											<input type="number" name="milliseconds" class="form-control only-number" value="${parameters.milliseconds}" required>		
 										</div>
 									</div>
 								</div>
@@ -119,6 +119,7 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript" src="/js/utils.js"></script>
 	<script>
 		function clearReadings(){
 			if(confirm("Deseja realmente resetar o histórico de leituras?")){

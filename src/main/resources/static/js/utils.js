@@ -1,9 +1,6 @@
 $('[data-toggle="tooltip"]').tooltip()
 $(".btn").off("focusin");
 
-$('.fiveNumber').mask("999999");
-$('.maxHundred').mask('999');
-
 if(document.querySelector("input[type='checkbox']") != null){
 	document.querySelector("input[type='checkbox']").addEventListener("change", function(){
 		if($(this).is(':checked')){
