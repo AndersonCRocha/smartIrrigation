@@ -3,6 +3,7 @@ package br.com.smartIrrigation.controller.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,7 @@ public class ReceivedByArduinoRestController {
 	}
 	
 	@GetMapping("/save")
-	public String save(
+	public ResponseEntity<String> save(
 					@RequestParam(name = "humidity", required = true) Integer humidity,
 					@RequestParam(name = "signalStrength", required = true) Integer signalStrength){
 		
@@ -61,8 +62,10 @@ public class ReceivedByArduinoRestController {
 			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
 			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
 		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-length", myReturn.length()+"");
 		
-		return myReturn;
+		return new ResponseEntity<String>(myReturn, headers, HttpStatus.OK);
 	}
 	
 	@GetMapping("/listReadings")
