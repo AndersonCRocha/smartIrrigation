@@ -20,12 +20,12 @@ public class ParametersRestController {
 	
 	@GetMapping("/parameters")
 	public ResponseEntity<String> getParameters() {
-		String myReturn = "";
+		String myReturn = "data:";
 		
 		Parameters parameters = parametersService.findById(1);
 		if(parameters != null) {
-			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+",," : ",,";
-			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+",," : ",,";
+			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+"," : ",";
+			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
 			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
 		}
 		HttpHeaders headers = new HttpHeaders();
