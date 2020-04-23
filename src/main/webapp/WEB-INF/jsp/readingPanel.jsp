@@ -7,7 +7,11 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+		<meta name="title" content="SmartIrrigation">
+		<meta name="description" content="Sistema de irrigação inteligente, que auxilia no plantio de hortas e lavouras, regando em horários agendados e em situação de humidade crítica previamente configurada.">
+		
         <link rel="shortcut icon" type="image/x-icon" href="/imgs/favicon.png">
+        <link rel="icon" type="image/png" href="/imgs/favicon.png">
 		
 		<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap/bootstrap-grid.min.css">
