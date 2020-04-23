@@ -54,12 +54,12 @@ public class ReceivedByArduinoRestController {
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
 		}
-		String myReturn = "data:";
+		String myReturn = "";
 		
 		Parameters parameters = parametersService.findById(1);
 		if(parameters != null) {
-			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+"," : ",";
-			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
+			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+",," : ",,";
+			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+",," : ",,";
 			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
 		}
 		HttpHeaders headers = new HttpHeaders();

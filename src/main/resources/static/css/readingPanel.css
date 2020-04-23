@@ -21,6 +21,9 @@ header{
 	width: 100%;
 	height: 100%;
 }
+label{
+	font-weight: bold;
+}
 #tableReadings {
 	border-radius: 20px !important;
 }
