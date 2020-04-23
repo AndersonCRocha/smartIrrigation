@@ -81,7 +81,7 @@
 			</section>
 	
 			<!-- Modal parameters config-->
-			<div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="parameters" aria-hidden="true">
+			<div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="parameters" aria-hidden="true" data-backdrop="static">
 				<div class="modal-dialog modal-dialog-centered " role="document">
 					<div class="modal-content">
 						<form action="/Parameters/save" method="POST" accept-charset="utf-8">
