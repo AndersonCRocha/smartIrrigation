@@ -99,6 +99,13 @@ label{
 		justify-content: space-between;
 		width: 100%
 	}
+	header img{
+		width: 40%;
+	}
+	th, td{
+		padding-right:20px !important;
+		padding-left:20px !important;
+	}
 }
 .iconTitle{
     color: green;
