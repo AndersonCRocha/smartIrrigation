@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.smartIrrigation.bean.Parameters;
 import br.com.smartIrrigation.bean.ReceivedByArduino;
+import br.com.smartIrrigation.service.ParametersService;
 import br.com.smartIrrigation.service.ReceivedByArduinoService;
 import br.com.smartIrrigation.util.Utilities;
 
@@ -20,6 +22,8 @@ public class ReceivedByArduinoRestController {
 	
 	@Autowired
 	private ReceivedByArduinoService receivedByArduinoService;
+	@Autowired
+	private ParametersService parametersService;
 	
 	@GetMapping("/saveReading")
 	public ResponseEntity<ReceivedByArduino> saveReading(
@@ -49,8 +53,16 @@ public class ReceivedByArduinoRestController {
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
 		}
-	
-		return receivedByArduino != null ? receivedByArduino.toString() : "";
+		String myReturn = "";
+		
+		Parameters parameters = parametersService.findById(1);
+		if(parameters != null) {
+			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+"," : ",";
+			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
+			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
+		}
+		
+		return myReturn;
 	}
 	
 	@GetMapping("/listReadings")

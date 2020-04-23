@@ -101,4 +101,10 @@ header{
     padding: 10px;
     border-radius: 50px;	
 }
-
+input[type="checkbox"]{
+	width: 20px;
+	height: 20px;
+}
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+}

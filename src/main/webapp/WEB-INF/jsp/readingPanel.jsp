@@ -100,11 +100,11 @@
 										</div>
 										<div class="col-6">
 											<label for="criticalHumidity">Umidade crítica:</label>
-											<input type="number" name="criticalHumidity" class="form-control onlyNumber" maxlength="3" value="${parameters.criticalHumidity}" required>		
+											<input type="text" name="criticalHumidity" class="form-control onlyNumber maxHundred" maxlength="3" value="${parameters.criticalHumidity}" required>		
 										</div>
 										<div class="col-4">
 											<label for="milliseconds">Tempo:</label>
-											<input type="number" name="milliseconds" class="form-control onlyNumber" maxlength="4" value="${parameters.milliseconds}" required>		
+											<input type="text" name="milliseconds" class="form-control onlyNumber fiveNumber" maxlength="5" value="${parameters.milliseconds}" required>		
 										</div>
 									</div>
 								</div>
@@ -120,22 +120,6 @@
 		</div>
 	</body>
 	<script>
-		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip()
-			$(".btn").off("focusin");
-
-		});
-
-		if(document.querySelector("input[type='checkbox']") != null){
-			document.querySelector("input[type='checkbox']").addEventListener("change", function(){
-				if($(this).is(':checked')){
-					$(this).val(true);
-				}else{
-					$(this).val(false);
-				}
-			});
-		}
-		
 		function clearReadings(){
 			if(confirm("Deseja realmente resetar o histórico de leituras?")){
 				$.get({
@@ -170,15 +154,5 @@
 				$icon.toggleClass("fa fa-angle-down fa fa-angle-up");
 			}, 100)
 		}
-		$(document).on('keypress', 'input.only-number', function(e) {
-			var $this = $(this);
-			var key = (window.event)?event.keyCode:e.which;
-			
-			if(key > 47 && key < 58){
-				return true;
-			} else {
-				return (key == 8 || key == 0) ? true : false;
-			}
-		});
 	</script>
 </html>
