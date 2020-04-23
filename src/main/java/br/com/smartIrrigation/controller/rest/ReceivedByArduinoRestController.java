@@ -54,7 +54,7 @@ public class ReceivedByArduinoRestController {
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
 		}
-		String myReturn = "";
+		String myReturn = "data:";
 		
 		Parameters parameters = parametersService.findById(1);
 		if(parameters != null) {
