@@ -113,7 +113,7 @@
 										<div class="col-6">
 											<label for="criticalHumidity">Umidade crítica:</label>
 											<div class="input-group">
-												<input type="text" name="criticalHumidity" id="criticalHumidity" class="form-control maxHundred" onblur="verifyHumidity(this);" value="${parameters.criticalHumidity}" required>		
+												<input type="text" name="criticalHumidity" id="criticalHumidity" class="form-control maxHundred" value="${parameters.criticalHumidity}" required>		
 										        <div class="input-group-append">
 										        	<div class="input-group-text">%</div>
 										        </div>
@@ -206,19 +206,22 @@
 
 			var milliseconds = (parseInt(minutes) * 60000) + (parseInt(hours) * 3600000);
 			$('input[name="milliseconds"]').val(milliseconds);
-			if(verifyHumidity($("#criticalHumidity"))){
+
+			var canSubmit = verifyHumidity($("#criticalHumidity"));
+			if(canSubmit){
 				$('#formParameters').submit();
 			}
 		}
 
 		function verifyHumidity(el){
-			var val = $(el).val();
-			if(parseInt(val) > 100){
-				alert("O valor máximo para a umidade crítica é de 100%!")
-				$(el).val(0);
+			var val = parseInt($(el).val());
+			if(val > 100 || isNaN(val)){
+				alert("A umidade crítica deve estar entre 0 e 100%!")
+				$(el).val("").focus();
 				return false;
+			}else{
+				return true;	
 			}
-			return true;
 		}
 	</script>
 </html>
