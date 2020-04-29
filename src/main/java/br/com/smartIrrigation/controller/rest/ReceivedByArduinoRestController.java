@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,5 +80,29 @@ public class ReceivedByArduinoRestController {
 		}
 		
 		return new ResponseEntity<List<ReceivedByArduino>>(listReadings, HttpStatus.OK);
+	}
+	
+	@PostMapping("/savePost")
+	public ResponseEntity<String> savePost(ReceivedByArduino receivedByArduino){
+		
+		try {
+			receivedByArduino.setVerificationTime(Utilities.today());
+			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
+		}catch(Exception e) {
+			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
+		}
+		
+		String myReturn = "data:";
+		
+		Parameters parameters = parametersService.findById(1);
+		if(parameters != null) {
+			myReturn += parameters.getIrrigate() != null ? parameters.getIrrigate()+"," : ",";
+			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
+			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-length", myReturn.length()+"");
+		
+		return new ResponseEntity<String>(myReturn, headers, HttpStatus.OK);
 	}
 }
