@@ -1,7 +1,6 @@
 package br.com.smartIrrigation.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +27,7 @@ public class ParametersRestController {
 			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
 			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
 		}
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-length", myReturn.length()+"");
 		
-		return new ResponseEntity<String>(myReturn, headers, HttpStatus.OK);
+		return new ResponseEntity<String>(myReturn, HttpStatus.OK);
 	}
 }

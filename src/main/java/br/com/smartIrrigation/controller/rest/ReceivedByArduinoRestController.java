@@ -34,7 +34,7 @@ public class ReceivedByArduinoRestController {
 		
 		ReceivedByArduino receivedByArduino;
 		try {
-			receivedByArduino = new ReceivedByArduino(Utilities.today(), humidity, signalStrength);
+			receivedByArduino = new ReceivedByArduino(Utilities.now(), humidity, signalStrength);
 			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
@@ -50,7 +50,7 @@ public class ReceivedByArduinoRestController {
 		
 		ReceivedByArduino receivedByArduino;
 		try {
-			receivedByArduino = new ReceivedByArduino(Utilities.today(), humidity, signalStrength);
+			receivedByArduino = new ReceivedByArduino(Utilities.now(), humidity, signalStrength);
 			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
@@ -63,10 +63,8 @@ public class ReceivedByArduinoRestController {
 			myReturn += parameters.getCriticalHumidity() != null ? parameters.getCriticalHumidity()+"," : ",";
 			myReturn += parameters.getMilliseconds() != null ? parameters.getMilliseconds()+"" : "";
 		}
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-length", myReturn.length()+"");
 		
-		return new ResponseEntity<String>(myReturn, headers, HttpStatus.OK);
+		return new ResponseEntity<String>(myReturn, HttpStatus.OK);
 	}
 	
 	@GetMapping("/listReadings")
@@ -86,7 +84,7 @@ public class ReceivedByArduinoRestController {
 	public ResponseEntity<String> savePost(ReceivedByArduino receivedByArduino){
 		
 		try {
-			receivedByArduino.setVerificationTime(Utilities.today());
+			receivedByArduino.setVerificationTime(Utilities.now());
 			receivedByArduino = receivedByArduinoService.saveOrUpdate(receivedByArduino);
 		}catch(Exception e) {
 			throw new RuntimeException("Ocorreu um erro ao tentar salvar os dados");
