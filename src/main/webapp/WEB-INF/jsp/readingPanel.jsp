@@ -31,7 +31,6 @@
 	<body>
 		<div class="page">
 			<header>
-<!-- 				<spam><i class="fa fa-recycle iconTitle"></i> SmartIrrigation</spam>&nbsp;<spam>Leituras</spam> -->
 				<img alt="Logotipo" src="/imgs/logo.png" width="100%">
 			</header>
 			
@@ -91,7 +90,7 @@
 			<div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="parameters" aria-hidden="true" data-backdrop="static">
 				<div class="modal-dialog modal-dialog-centered " role="document">
 					<div class="modal-content">
-						<form action="/Parameters/save" method="POST" accept-charset="utf-8" id="formParameters">
+						<form action="/parameters/save" method="POST" accept-charset="utf-8" id="formParameters">
 							<div class="modal-header">
 								<h5 class="modal-title" id="parameters">Parâmetros</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,9 +149,9 @@
 		function clearReadings(){
 			if(confirm("Deseja realmente resetar o histórico de leituras?")){
 				$.get({
-					url: "/ReadingPanel?deleteAll=true",
+					url: "/readings?deleteAll=true",
 					success: function(){
-						window.location.href="/ReadingPanel";
+						window.location.href="/readings";
 					},
 					error:function(){
 						alert("Não foi possível limpar as leituras.");
@@ -161,15 +160,19 @@
 			}
 		}
 		function testReading(){
-			$.get({
-				url: "/rest/saveReading?humidity=7&signalStrength=13",
+			$.ajax({
+				url: '/rest/readings',
+				type: 'POST',
+				data: '{ "humidity": "7", "signalStrength" : "21" }',
+				contentType:"application/json; charset=utf-8",
+				dataType: 'json',
 				success: function(){
-					window.location.href="/ReadingPanel";
+					window.location.href='/readings';
 				},
 				error:function(){
 					alert("Ocorreu um erro ao tentar cadastrar a leitura de teste.");
 				}
-			});
+			})
 		}
 		function toggleText(){
 			$('#divCommands').toggleClass("showDiv");

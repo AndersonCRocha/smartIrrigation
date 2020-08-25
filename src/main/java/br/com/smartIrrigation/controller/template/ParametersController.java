@@ -13,17 +13,17 @@ import br.com.smartIrrigation.bean.Parameters;
 import br.com.smartIrrigation.service.ParametersService;
 
 @Controller
-@RequestMapping("/Parameters")
-public class ParametersTemplateController {
+@RequestMapping("/parameters")
+public class ParametersController {
 	
 	@Autowired
 	private ParametersService parametersService;
 	
 	@PostMapping("save")
 	public void saveParameters(HttpServletResponse response, Parameters parameters) throws IOException {
-		parameters.setId(1);
 		parametersService.saveOrUpdate(parameters);
-		response.sendRedirect("/ReadingPanel");
+		response.sendRedirect("/readings");
 		return;
 	}
+	
 }

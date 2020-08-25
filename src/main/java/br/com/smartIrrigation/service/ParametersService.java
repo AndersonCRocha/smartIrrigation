@@ -10,13 +10,14 @@ import br.com.smartIrrigation.repository.ParametersRepository;
 import br.com.smartIrrigation.util.GenericService;
 
 @Service
-public class ParametersService implements GenericService<Parameters, Integer>{
+public class ParametersService implements GenericService<Parameters, Integer> {
 
 	@Autowired
 	private ParametersRepository parametersRepository;
-	
+
 	@Override
 	public Parameters saveOrUpdate(Parameters bean) {
+		bean.setId(1);
 		return parametersRepository.saveAndFlush(bean);
 	}
 
@@ -38,6 +39,10 @@ public class ParametersService implements GenericService<Parameters, Integer>{
 	@Override
 	public void deleteById(Integer id) {
 		parametersRepository.deleteById(id);
+	}
+
+	public Parameters getParameters() {
+		return findById(1);
 	}
 
 }

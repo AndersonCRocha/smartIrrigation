@@ -11,7 +11,6 @@
 	<groupId>br.com</groupId>
 	<artifactId>smartIrrigation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-<!-- 	<packaging>war</packaging> -->
 	<name>smartIrrigation</name>
 	<description>It aims to receive data from an UNO R3 arduino and save it in the database.</description>
 
@@ -20,6 +19,18 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
