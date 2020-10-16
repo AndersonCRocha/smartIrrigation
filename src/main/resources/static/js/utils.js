@@ -1,4 +1,4 @@
-$('[data-toggle="tooltip"]').tooltip()
+$('[data-toggle="tooltip"]').tooltip();
 $(".btn").off("focusin");
 $('.hour').mask('00:00',{placeholder:"00:00"});
 $('.maxHundred').mask('000');
@@ -15,7 +15,7 @@ if(document.querySelector("input[type='checkbox']") != null){
 
 $(document).on('keypress', 'input.only-number', function(e) {
 	var $this = $(this);
-	var key = (window.event)?event.keyCode:e.which;
+	var key = (window.event) ? event.keyCode : e.which;
 	
 	if(key > 47 && key < 58){
 		return true;
