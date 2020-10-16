@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.smartIrrigation.enummeration.IrrigationsType;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Irrigations {
@@ -25,10 +26,12 @@ public class Irrigations {
 		return id;
 	}
 
+	@ApiModelProperty(example = "dd/MM/yyyy hh:mm:ss")
 	public LocalDateTime getStartAt() {
 		return startAt;
 	}
 	
+	@ApiModelProperty(example = "dd/MM/yyyy hh:mm:ss")
 	public LocalDateTime getEndAt() {
 		return endAt;
 	}

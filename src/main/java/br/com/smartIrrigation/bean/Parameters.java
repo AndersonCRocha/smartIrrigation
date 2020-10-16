@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Parameters {
 
@@ -30,6 +32,7 @@ public class Parameters {
 		return sporadicIrrigationDuration;
 	}
 
+	@ApiModelProperty(example = "dd/MM/yyyy hh:mm:ss")
 	public LocalDateTime getNextScheduledIrrigation() {
 		return nextScheduledIrrigation;
 	}
