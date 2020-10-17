@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.smartIrrigation.bean.Parameters;
 import br.com.smartIrrigation.bean.Irrigations;
+import br.com.smartIrrigation.bean.Parameters;
 import br.com.smartIrrigation.repository.IrrigationsRepository;
 import br.com.smartIrrigation.util.GenericService;
-import br.com.smartIrrigation.util.Utilities;
 
 @Service
 public class IrrigationsService implements GenericService<Irrigations, Long> {
@@ -24,7 +23,6 @@ public class IrrigationsService implements GenericService<Irrigations, Long> {
 
 	@Override
 	public Irrigations saveOrUpdate(Irrigations bean) {
-		bean.setStartAt(Utilities.now());
 		return irrigationsRepository.saveAndFlush(bean);
 	}
 
